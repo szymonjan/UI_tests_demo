@@ -1,2 +1,2 @@
-# UI_tests_demo
+# This project contains simple UI tests
 This repository contains simple UI tests
