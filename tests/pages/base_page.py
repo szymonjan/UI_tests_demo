@@ -6,7 +6,7 @@ from wtframework.wtf.web.page import PageObject
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class BasePage(PageObject):
     """
     This is a Base Page class that combines custom methods for builiding Page Objects. Every Page Object class
-    inherits from BasePage
+    inherits from Base Page
     """
 
     def __init__(self, webdriver, *args, **kwargs):
@@ -55,7 +55,6 @@ class BasePage(PageObject):
         action.click()
         action.perform()
 
-
     def find_list_of_elements(self, xpath):
         """ Use this method to locate list of elements """
 
@@ -64,7 +63,6 @@ class BasePage(PageObject):
 
         # Then return a list of elements
         return self.webdriver.find_elements(By.XPATH, xpath)
-
 
     def get_element_from_list(self, xpath, n):
         """This method returns text from element from a list"""
