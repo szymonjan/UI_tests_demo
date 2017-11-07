@@ -48,6 +48,6 @@ if __name__ == '__main__':
         result_path = os.path.join("reports", options.result_file)
     else:
         result_path = os.path.join("reports", "results.html")
-    test_path = os.path.join("tests", "testcases", "youtube_tests.py") + os.sep
+    test_path = os.path.join("tests", "testcases", "simple_tests.py") + os.sep
     os.system("pytest {test_path} --html={result_path}"
               .format(result_path=result_path, test_path=test_path))

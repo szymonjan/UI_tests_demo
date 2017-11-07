@@ -22,15 +22,14 @@ from wtframework.wtf.config import WTF_CONFIG_READER
 # 'admin_user' and 'admin_password'
 
 
-def get_vip_login():
-    return WTF_CONFIG_READER.get("login_data.vip_login")
+def url_address():
+    "Application under test URL"
+    return WTF_CONFIG_READER.get('test_data.url')
 
+def login():
+    "Correct login"
+    return WTF_CONFIG_READER.get('test_data.login')
 
-def get_vip_password():
-    return WTF_CONFIG_READER.get("login_data.vip_password")
-
-
-def get_url_address():
-    "Configure this via the 'search_provider' setting."
-    return WTF_CONFIG_READER.get('web_app.url')
-
+def password():
+    "Correct password"
+    return WTF_CONFIG_READER.get('test_data.password')

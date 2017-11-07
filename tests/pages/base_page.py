@@ -21,7 +21,7 @@ class BasePage(PageObject):
         super(BasePage, self).__init__(webdriver, *args, **kwargs)
 
     def find_visible_element(self, xpath):
-        """Use this method to locate elements that are not clickable right away"""
+        """Use this method to locate elements that are not visible instantly"""
         try:
             return WebDriverWait(self.webdriver, WTF_TIMEOUT_MANAGER.SHORT).until(
                 EC.visibility_of_element_located((By.XPATH, xpath)))
@@ -89,7 +89,7 @@ class BasePage(PageObject):
         return datetime.date.today().strftime("%d.%m")
 
     @staticmethod
-    def get_current_date_format(self):
+    def get_current_full_date(self):
         """ Returns current date in format 'Thu Jun 08 2017'"""
         return datetime.date.today().strftime("%a %b %d %Y")
 
@@ -100,7 +100,7 @@ class BasePage(PageObject):
         return date.strftime("%d.%m")
 
     @staticmethod
-    def get_next_day_date_format(self):
+    def get_next_day_full_date(self):
         """ Returns next day date in format 'Thu Jun 08 2017'"""
         date = datetime.datetime.now() + datetime.timedelta(days=1)
         return date.strftime("%a %b %d %Y")

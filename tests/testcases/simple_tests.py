@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+
+from wtframework.wtf.testobjects.basetests import WTFBaseTest
+from wtframework.wtf.web.webdriver import WTF_WEBDRIVER_MANAGER
+from wtframework.wtf.utils.test_utils import do_and_ignore
+
+from tests.pages.simple_page import LoginPage
+import tests.testdata.settings as data
+
+import unittest
+
+
+class LoginTests(WTFBaseTest):
+
+    def setUp(self):
+        self.driver = WTF_WEBDRIVER_MANAGER.new_driver()
+        self.driver.get(data.url_address())
+
+    def tearDown(self):
+        do_and_ignore(lambda: WTF_WEBDRIVER_MANAGER.close_driver())
+
+    def test_valid_data(self):
+        """ Test that a user with a valid login data can login """
+
+        login_page = LoginPage(self.driver)
+
+        #Filling the login form
+        login_page.set_login(data.login())
+        login_page.set_password(data.password())
+        login_page.set_repeat_password(data.password())
+
+        #Submitting filled form
+        login_page.submit_form()
+
+if __name__ == '__main__':
+    unittest.main()
