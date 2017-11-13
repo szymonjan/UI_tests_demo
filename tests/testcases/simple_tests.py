@@ -9,7 +9,6 @@ import tests.testdata.settings as data
 
 import unittest
 
-
 class LoginTests(WTFBaseTest):
 
     def setUp(self):
@@ -22,15 +21,21 @@ class LoginTests(WTFBaseTest):
     def test_valid_data(self):
         """ Test that a user with a valid login data can login """
 
+        #Login page intitialization.
+        #If some elements aren't displayed an exception is thrown.
         login_page = LoginPage(self.driver)
 
-        #Filling the login form
+        #Fill the login form
         login_page.set_login(data.login())
         login_page.set_password(data.password())
         login_page.set_repeat_password(data.password())
 
-        #Submitting filled form
+        #Submit filled form
         login_page.submit_form()
+
+        #User is logged in and correct message is displayed
+        self.assertEqual("Succesful login!", login_page.get_alert_text())
+
 
 if __name__ == '__main__':
     unittest.main()

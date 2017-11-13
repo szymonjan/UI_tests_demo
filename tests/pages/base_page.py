@@ -6,7 +6,8 @@ from wtframework.wtf.web.page import PageObject
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import TimeoutException, NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -82,6 +83,16 @@ class BasePage(PageObject):
 
         # Then return located element
         return self.find_clickable_element(el_xpath)
+
+    def get_alert_text(self):
+        """ Returns alert text."""
+        i = 1
+        while i < 5:
+            try:
+                return Alert(self.webdriver).text
+            except NoAlertPresentException:
+                time.sleep(1)
+                i+=1
 
     @staticmethod
     def get_current_date(self):
