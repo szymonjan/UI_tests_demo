@@ -50,7 +50,7 @@ class BasePage(PageObject):
 
         # Perform chain of actions to find and click on element
         action = ActionChains(self.webdriver)
-        # First hooover to a element
+        # First hooover over an element
         action.move_to_element(submenu_element)
         # Then click on it
         action.click()

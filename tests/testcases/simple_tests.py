@@ -2,7 +2,6 @@
 
 from wtframework.wtf.testobjects.basetests import WTFBaseTest
 from wtframework.wtf.web.webdriver import WTF_WEBDRIVER_MANAGER
-from wtframework.wtf.utils.test_utils import do_and_ignore
 
 from tests.pages.simple_page import LoginPage
 import tests.testdata.settings as data
@@ -16,7 +15,7 @@ class LoginTests(WTFBaseTest):
         self.driver.get(data.url_address())
 
     def tearDown(self):
-        do_and_ignore(lambda: WTF_WEBDRIVER_MANAGER.close_driver())
+        WTF_WEBDRIVER_MANAGER.close_driver()
 
     def test_valid_data(self):
         """ Test that a user with a valid login data can login """
@@ -33,7 +32,7 @@ class LoginTests(WTFBaseTest):
         #Submit filled form
         login_page.submit_form()
 
-        #User is logged in and correct message is displayed
+        #Assert that user is logged in and correct message is displayed
         self.assertEqual("Succesful login!", login_page.get_alert_text())
 
 
