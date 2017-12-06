@@ -6,7 +6,8 @@ from wtframework.wtf.web.page import PageObject
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import TimeoutException, NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -21,7 +22,7 @@ class BasePage(PageObject):
         super(BasePage, self).__init__(webdriver, *args, **kwargs)
 
     def find_visible_element(self, xpath):
-        """Use this method to locate elements that are not clickable right away"""
+        """Use this method to locate elements that are not visible instantly"""
         try:
             return WebDriverWait(self.webdriver, WTF_TIMEOUT_MANAGER.SHORT).until(
                 EC.visibility_of_element_located((By.XPATH, xpath)))
@@ -49,7 +50,7 @@ class BasePage(PageObject):
 
         # Perform chain of actions to find and click on element
         action = ActionChains(self.webdriver)
-        # First hooover to a element
+        # First hooover over an element
         action.move_to_element(submenu_element)
         # Then click on it
         action.click()
@@ -83,13 +84,23 @@ class BasePage(PageObject):
         # Then return located element
         return self.find_clickable_element(el_xpath)
 
+    def get_alert_text(self):
+        """ Returns alert text."""
+        i = 1
+        while i < 5:
+            try:
+                return Alert(self.webdriver).text
+            except NoAlertPresentException:
+                time.sleep(1)
+                i+=1
+
     @staticmethod
     def get_current_date(self):
         """ Returns current date in format 'DD.MM'"""
         return datetime.date.today().strftime("%d.%m")
 
     @staticmethod
-    def get_current_date_format(self):
+    def get_current_full_date(self):
         """ Returns current date in format 'Thu Jun 08 2017'"""
         return datetime.date.today().strftime("%a %b %d %Y")
 
@@ -100,7 +111,7 @@ class BasePage(PageObject):
         return date.strftime("%d.%m")
 
     @staticmethod
-    def get_next_day_date_format(self):
+    def get_next_day_full_date(self):
         """ Returns next day date in format 'Thu Jun 08 2017'"""
         date = datetime.datetime.now() + datetime.timedelta(days=1)
         return date.strftime("%a %b %d %Y")
