@@ -8,10 +8,10 @@ This project is used to present basic example of GUI tests with Selenium Webdriv
 - test runner for easier test configuration
 - additional test utils
 
-#One framework to test them all
+# One framework to test them all
 WTFramewok can be used as an framework for mobile apps tests. For this you would only need to install and configure Appium. 
 
-#How to run tests
+# How to run tests
 1. Install Python 3.4+
 2. Clone this repository
 3. Install all required packages by running `pip install -r requirements.txt`
